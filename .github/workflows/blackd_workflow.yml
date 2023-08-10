@@ -14,7 +14,7 @@ env:
   IMAGE_NAME: lashkinse/blackd
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -67,7 +67,5 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ steps.meta.outputs.tags }}-latest
+          tags: latest
           labels: ${{ steps.meta.outputs.labels }}
