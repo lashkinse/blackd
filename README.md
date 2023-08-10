@@ -7,24 +7,24 @@
 В данном Dockerfile применяется многоэтапная сборка для создания более компактного контейнера. Сначала формируется образ builder, в котором устанавливаются необходимые зависимости и Black. Затем из образа builder извлекаются только необходимые компоненты для создания окончательного образа. Такой подход позволяет уменьшить размер контейнера до приблизительно 160 МБ.
 
 ```
-FROM python:3.9-slim AS builder
+FROM python:3.11-slim AS builder
 RUN apt update && apt install -y git build-essential \
     && pip install --upgrade pip setuptools wheel black[d]
 
-FROM python:3.9-slim
+FROM python:3.11-slim
 COPY --from=builder /usr/local/ /usr/local/
 EXPOSE 45484
 ENTRYPOINT ["blackd", "--bind-host", "0.0.0.0", "--bind-port", "45484"]
 ```
 
-- `FROM python:3.9-slim AS builder`
+- `FROM python:3.11-slim AS builder`
   Здесь определяется начальный образ контейнера, на базе которого будет происходить сборка. В данном случае, это образ Python версии 3.11 с минимальным набором компонентов (slim). Он будет использован для сборки промежуточного образа (builder).
 
 - `RUN apt update && apt install -y git build-essential \`
   `&& pip install --upgrade pip setuptools wheel black[d]`
   Этот шаг в инструкции RUN обновляет список доступных пакетов в системе через команду apt update, а затем устанавливает несколько необходимых пакетов, включая git и build-essential (набор инструментов для сборки программ). Далее происходит обновление pip, установка setuptools и wheel для управления зависимостями Python, а также установка инструмента Black с его дополнительными зависимостями.
 
-- `FROM python:3.9-slim`
+- `FROM python:3.11-slim`
   Вторая часть кода начинает определение нового образа на основе python:3.11-slim. Это будет окончательный образ, который будет содержать только необходимые компоненты для запуска сервиса.
 
 - `COPY --from=builder /usr/local/ /usr/local/`
