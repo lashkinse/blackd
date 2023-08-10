@@ -1,4 +1,4 @@
-name: build
+name: Docker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -11,7 +11,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   # <account>/<repo>
-  IMAGE_NAME: lashkinse/blackd
+  IMAGE_NAME: lashkinse/blackd:latest
 
 jobs:
   build:
