@@ -7,7 +7,7 @@
 Этот образ доступен на [Dockerhub](https://hub.docker.com/r/lashkinse/blackd). Вы можете запустить его с помощью следующей команды:
 
 ```
-docker run -d -p 45484:45484 --name blackd lashkinse/blackd:latest
+docker run --restart=always -d -p 45484:45484 --name blackd lashkinse/blackd:latest
 ```
 
 ### Dockerfile
